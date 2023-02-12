@@ -1,4 +1,5 @@
 import { prisma } from "@/config";
+import { Booking } from "@prisma/client";
 
 async function findBookingByUserId(userId: number) {
   return prisma.booking.findFirst({
@@ -15,14 +16,15 @@ async function findBookingByRoom(roomId: number) {
   });
 }
 
-async function createBooking(userId: number, roomId: number) {
+async function createBooking(booking: CreateBookingParams) {
   return prisma.booking.create({
     data: {
-      roomId,
-      userId,
+      ...booking,
     }
   })
 }
+
+type CreateBookingParams = Omit <Booking, "id" | "createdAt" | "updatedAt">
 
 const bookingRepository = {
   findBookingByUserId,

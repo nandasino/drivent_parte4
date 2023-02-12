@@ -33,7 +33,11 @@ async function postBookingRoomById(userId: number, roomId: number) {
   if (room.capacity <= bookings.length) {
     throw forbidden();
   }
-  const booking = await bookingRepository.createBooking(userId, roomId);
+  const bookingData = {
+    userId,
+    roomId
+  };
+  const booking = await bookingRepository.createBooking(bookingData);
   return { bookingId: booking.id }
 };
 
