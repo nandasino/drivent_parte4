@@ -5,10 +5,6 @@ import roomRepository from "@/repositories/room-repository";
 import ticketRepository from "@/repositories/ticket-repository";
 
 async function getBooking(userId: number) {
-  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-  if (!enrollment) {
-    throw notFoundError();
-  }
   const booking = await bookingRepository.findBookingByUserId(userId);
   if (!booking) {
     throw notFoundError();
