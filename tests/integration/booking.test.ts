@@ -141,6 +141,9 @@ describe("POST /booking", () => {
       .set("Authorization", `Bearer ${token}`).send({"roomId": room.id});
 
       expect(response.status).toEqual(httpStatus.OK);
+      expect(response.body).toEqual({
+        bookingId: response.body.bookingId,
+      })
     });
 
     it("should respond with status 400 whith a invalid roomID", async () => {
