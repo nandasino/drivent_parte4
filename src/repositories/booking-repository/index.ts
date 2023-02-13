@@ -21,7 +21,7 @@ async function createBooking(booking: CreateBookingParams) {
     data: {
       ...booking,
     }
-  })
+  });
 }
 
 async function upsertBooking(booking: UpdateBookingParams) {
@@ -32,7 +32,7 @@ async function upsertBooking(booking: UpdateBookingParams) {
     data: {
       roomId: booking.roomId,
     }
-  })
+  });
 }
 
 type CreateBookingParams = Omit <Booking, "id" | "createdAt" | "updatedAt">;

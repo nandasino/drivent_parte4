@@ -10,7 +10,7 @@ async function getBooking(userId: number) {
     throw notFoundError();
   }
   return booking;
-};
+}
 
 async function postBookingRoomById(userId: number, roomId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
@@ -22,7 +22,7 @@ async function postBookingRoomById(userId: number, roomId: number) {
     throw forbidden();
   }
   const room = await roomRepository.findRoomById(roomId);
-  if (!room){
+  if (!room) {
     throw notFoundError();
   }
   const bookings = await bookingRepository.findBookingByRoom(roomId);
@@ -34,12 +34,12 @@ async function postBookingRoomById(userId: number, roomId: number) {
     roomId
   };
   const booking = await bookingRepository.createBooking(bookingData);
-  return { bookingId: booking.id }
-};
+  return { bookingId: booking.id };
+}
 
 async function updateBookingRoomById(userId: number, roomId: number) {
   const room = await roomRepository.findRoomById(roomId);
-  if (!room){
+  if (!room) {
     throw notFoundError();
   }
   const bookings = await bookingRepository.findBookingByRoom(roomId);
@@ -47,7 +47,7 @@ async function updateBookingRoomById(userId: number, roomId: number) {
     throw forbidden();
   }
   const bookingExist = await bookingRepository.findBookingByUserId(userId);
-  if(!bookingExist){
+  if(!bookingExist) {
     throw forbidden();
   }
   const bookingData = {
@@ -57,7 +57,7 @@ async function updateBookingRoomById(userId: number, roomId: number) {
   };
   const booking = await bookingRepository.upsertBooking(bookingData);
   return { bookingId: booking.id };
-};
+}
 
 const bookingService = {
   getBooking,
