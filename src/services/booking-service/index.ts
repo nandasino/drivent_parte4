@@ -38,14 +38,6 @@ async function postBookingRoomById(userId: number, roomId: number) {
 };
 
 async function updateBookingRoomById(userId: number, roomId: number) {
-  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-  if (!enrollment) {
-    throw forbidden();
-  }
-  const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
-  if (!ticket || ticket.status === "RESERVED" || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel) {
-    throw forbidden();
-  }
   const room = await roomRepository.findRoomById(roomId);
   if (!room){
     throw notFoundError();

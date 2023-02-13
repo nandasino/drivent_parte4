@@ -24,23 +24,19 @@ async function createBooking(booking: CreateBookingParams) {
   })
 }
 
-async function upsertBooking(booking: UpsertBookingParams) {
-  return prisma.booking.upsert({
+async function upsertBooking(booking: UpdateBookingParams) {
+  return prisma.booking.update({
     where: {
       id: booking.id,
     },
-    create: {
-      userId: booking.userId,
-      roomId: booking.roomId,
-    },
-    update: {
+    data: {
       roomId: booking.roomId,
     }
   })
 }
 
 type CreateBookingParams = Omit <Booking, "id" | "createdAt" | "updatedAt">;
-type UpsertBookingParams = Omit <Booking, "createdAt" | "updatedAt">;
+type UpdateBookingParams = Omit <Booking, "createdAt" | "updatedAt">;
 
 const bookingRepository = {
   findBookingByUserId,
